@@ -11,20 +11,18 @@ export default class Start extends React.Component {
         bgColor: '#ffffff',
     };
 
-    /*
-   Updates the state with the background color choice of a user 
-   from the colors list
-   */
+    // updates the state with the background color choiced by user
+
     changeBgColor = newColor => {
         this.setState({ bgColor: newColor });
     };
 
-    //background color options Color options HEX codes: #090C08; #474056; #8A95A5; #B9C6AE
+    //background color options 
     colors = {
-        pink: '#090C08',
+        black: '#090C08',
         purple: '#474056',
-        green: '#8A95A5',
-        blue: '#B9C6AE',
+        grey: '#8A95A5',
+        green: '#B9C6AE',
     };
 
     render() {
@@ -36,7 +34,7 @@ export default class Start extends React.Component {
                     style={styles.bgImage}
                 >
                     <View style={styles.titleContainer}>
-                        <Text style={styles.titleText}>Bla Bla Chat</Text>
+                        <Text style={styles.titleText}>BlaBlaChat</Text>
                     </View>
 
                     <View style={styles.box}>
@@ -57,15 +55,15 @@ export default class Start extends React.Component {
                             <Text style={styles.colorsTitle}>Choose a Background Color</Text>
 
                             <View style={styles.colorsList}>
-                                {/* pink background */}
+                                {/* black background */}
                                 <TouchableOpacity
                                     accessible={true}
-                                    accessibilityLabel="Select pink background"
-                                    accessibilityHint="Choose pink background for the chat screen"
+                                    accessibilityLabel="Select black background"
+                                    accessibilityHint="Choose black background for the chat screen"
                                     accessibilityRole="button"
-                                    onPress={() => this.changeBgColor(this.colors.pink)}
+                                    onPress={() => this.changeBgColor(this.colors.black)}
                                 >
-                                    <View style={styles.pink}></View>
+                                    <View style={styles.black}></View>
                                 </TouchableOpacity>
 
                                 {/* Purple background */}
@@ -79,7 +77,18 @@ export default class Start extends React.Component {
                                     <View style={styles.purple}></View>
                                 </TouchableOpacity>
 
-                                {/* GREEN background */}
+                                {/* grey background */}
+                                <TouchableOpacity
+                                    accessible={true}
+                                    accessibilityLabel="Select grey background"
+                                    accessibilityHint="Choose grey background for the chat screen"
+                                    accessibilityRole="button"
+                                    onPress={() => this.changeBgColor(this.colors.grey)}
+                                >
+                                    <View style={styles.grey}></View>
+                                </TouchableOpacity>
+
+                                {/* green background */}
                                 <TouchableOpacity
                                     accessible={true}
                                     accessibilityLabel="Select green background"
@@ -88,17 +97,6 @@ export default class Start extends React.Component {
                                     onPress={() => this.changeBgColor(this.colors.green)}
                                 >
                                     <View style={styles.green}></View>
-                                </TouchableOpacity>
-
-                                {/* BLUE background */}
-                                <TouchableOpacity
-                                    accessible={true}
-                                    accessibilityLabel="Select blue background"
-                                    accessibilityHint="Choose blue background for the chat screen"
-                                    accessibilityRole="button"
-                                    onPress={() => this.changeBgColor(this.colors.blue)}
-                                >
-                                    <View style={styles.blue}></View>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -210,7 +208,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
-    pink: {
+    black: {
         width: 40,
         height: 40,
         borderRadius: 20,
@@ -222,13 +220,13 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         backgroundColor: '#baa6d0',
     },
-    green: {
+    grey: {
         width: 40,
         height: 40,
         borderRadius: 20,
         backgroundColor: '#c4df9b',
     },
-    blue: {
+    green: {
         width: 40,
         height: 40,
         borderRadius: 20,
