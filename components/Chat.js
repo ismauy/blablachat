@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Platform, KeyboardAvoidingView } from 'react-native';
 import { Bubble, GiftedChat } from 'react-native-gifted-chat';
-
+import PropTypes from 'prop-types';
 
 export default class Chat extends Component {
     constructor() {
@@ -12,6 +12,7 @@ export default class Chat extends Component {
     }
 
     componentDidMount() {
+        this.props.navigation.setOptions({ title: this.props.route.params.name });
         this.setState({
             messages: [
                 {
@@ -96,3 +97,9 @@ const styles = StyleSheet.create({
         color: '#000',
     },
 });
+
+Chat.propTypes = {
+    navigation: PropTypes.shape({
+        navigate: PropTypes.func.isRequired,
+    }).isRequired
+}

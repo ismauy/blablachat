@@ -4,6 +4,15 @@ import ImageBackground from 'react-native/Libraries/Image/ImageBackground';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import bgImg from '../assets/bgImage.png';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import PropTypes from 'prop-types';
+
+//background color options 
+const colors = {
+    black: '#090C08',
+    purple: '#474056',
+    grey: '#8A95A5',
+    green: '#B9C6AE',
+};
 
 export default class Start extends React.Component {
     state = {
@@ -15,14 +24,6 @@ export default class Start extends React.Component {
 
     changeBgColor = newColor => {
         this.setState({ bgColor: newColor });
-    };
-
-    //background color options 
-    colors = {
-        black: '#090C08',
-        purple: '#474056',
-        grey: '#8A95A5',
-        green: '#B9C6AE',
     };
 
     render() {
@@ -61,7 +62,7 @@ export default class Start extends React.Component {
                                     accessibilityLabel="Select black background"
                                     accessibilityHint="Choose black background for the chat screen"
                                     accessibilityRole="button"
-                                    onPress={() => this.changeBgColor(this.colors.black)}
+                                    onPress={() => this.changeBgColor(colors.black)}
                                 >
                                     <View style={styles.black}></View>
                                 </TouchableOpacity>
@@ -72,7 +73,7 @@ export default class Start extends React.Component {
                                     accessibilityLabel="Select purple background"
                                     accessibilityHint="Choose purple background for the chat screen"
                                     accessibilityRole="button"
-                                    onPress={() => this.changeBgColor(this.colors.purple)}
+                                    onPress={() => this.changeBgColor(colors.purple)}
                                 >
                                     <View style={styles.purple}></View>
                                 </TouchableOpacity>
@@ -83,7 +84,7 @@ export default class Start extends React.Component {
                                     accessibilityLabel="Select grey background"
                                     accessibilityHint="Choose grey background for the chat screen"
                                     accessibilityRole="button"
-                                    onPress={() => this.changeBgColor(this.colors.grey)}
+                                    onPress={() => this.changeBgColor(colors.grey)}
                                 >
                                     <View style={styles.grey}></View>
                                 </TouchableOpacity>
@@ -94,7 +95,7 @@ export default class Start extends React.Component {
                                     accessibilityLabel="Select green background"
                                     accessibilityHint="Choose green background for the chat screen"
                                     accessibilityRole="button"
-                                    onPress={() => this.changeBgColor(this.colors.green)}
+                                    onPress={() => this.changeBgColor(colors.green)}
                                 >
                                     <View style={styles.green}></View>
                                 </TouchableOpacity>
@@ -246,3 +247,9 @@ const styles = StyleSheet.create({
         color: '#ffffff',
     },
 });
+
+Start.propTypes = {
+    navigation: PropTypes.shape({
+        navigate: PropTypes.func.isRequired,
+    }).isRequired
+}
