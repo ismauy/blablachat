@@ -22,6 +22,11 @@ export default class Chat extends Component {
         this.state = {
             uid: 0,
             messages: [],
+            user: {
+                _id: '',
+                name: '',
+                avatar: '',
+            },
         };
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
@@ -30,7 +35,8 @@ export default class Chat extends Component {
     }
 
     componentDidMount() {
-        this.props.navigation.setOptions({ title: this.props.route.params.name });
+        let { name } = this.props.route.params;
+        this.props.navigation.setOptions({ title: name });
         this.authUnsubscribe = firebase.auth().onAuthStateChanged((user) => {
             if (!user) {
                 firebase.auth().signInAnonymously();
@@ -38,6 +44,11 @@ export default class Chat extends Component {
             this.setState({
                 uid: user.uid,
                 messages: [],
+                user: {
+                    _id: user.uid,
+                    name: name,
+                    avatar: 'https://placeimg.com/140/140/any',
+                },
             });
             this.unsubscribe = this.referenceChatMessages
                 .orderBy("createdAt", "desc")
@@ -61,7 +72,11 @@ export default class Chat extends Component {
                 _id: data._id,
                 text: data.text,
                 createdAt: data.createdAt.toDate(),
-                user: data.user,
+                user: {
+                    _id: data.user._id,
+                    name: data.user.name,
+                    avatar: data.user.avatar,
+                },
             });
         });
         this.setState({
@@ -77,6 +92,7 @@ export default class Chat extends Component {
             _id: message._id,
             text: message.text || "",
             createdAt: message.createdAt,
+            user: this.state.user,
         });
     }
 
@@ -119,7 +135,11 @@ export default class Chat extends Component {
                         renderBubble={this.renderBubble.bind(this)}
                         messages={this.state.messages}
                         onSend={messages => this.onSend(messages)}
-                        user={{ _id: 1 }}
+                        user={{
+                            _id: this.state.user._id,
+                            name: this.state.name,
+                            avatar: this.state.user.avatar,
+                        }}
                     />
                     {Platform.OS === 'android' ? (
                         <KeyboardAvoidingView behavior="height" />
