@@ -4,6 +4,11 @@ import { Bubble, GiftedChat, InputToolbar } from 'react-native-gifted-chat';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
+import * as Permissions from 'expo-permissions';
+import * as ImagePicker from 'expo-image-picker';
+import * as Location from 'expo-location';
+import MapView from 'react-native-maps';
+import CustomActions from './CustomActions';
 
 
 const firebase = require('firebase');
@@ -30,7 +35,9 @@ export default class Chat extends Component {
                 name: '',
                 avatar: '',
             },
-            isConnected: false
+            isConnected: false,
+            image: null,
+            location: null
         };
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
@@ -122,6 +129,8 @@ export default class Chat extends Component {
                     name: data.user.name,
                     avatar: data.user.avatar,
                 },
+                image: data.image || null,
+                location: data.location || null
             });
         });
         this.setState({
@@ -139,6 +148,8 @@ export default class Chat extends Component {
             text: message.text || "",
             createdAt: message.createdAt,
             user: this.state.user,
+            image: message.image || "",
+            location: message.location || null
         });
     }
 
@@ -176,6 +187,33 @@ export default class Chat extends Component {
         }
     }
 
+    renderCustomActions = (props) => {
+        return <CustomActions {...props} />;
+    };
+
+    renderCustomView(props) {
+        const { currentMessage } = props;
+        if (currentMessage.location) {
+            return (
+                <MapView
+                    style={{
+                        width: 150,
+                        height: 100,
+                        borderRadius: 13,
+                        margin: 3
+                    }}
+                    region={{
+                        latitude: currentMessage.location.latitude,
+                        longitude: currentMessage.location.longitude,
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
+                    }}
+                />
+            );
+        }
+        return null;
+    }
+
     render() {
         const { bgColor } = this.props.route.params;
 
@@ -192,6 +230,8 @@ export default class Chat extends Component {
                         style={styles.giftedChat}
                         renderBubble={this.renderBubble.bind(this)}
                         renderInputToolbar={this.renderInputToolbar.bind(this)}
+                        renderActions={this.renderCustomActions}
+                        renderCustomView={this.renderCustomView}
                         messages={this.state.messages}
                         onSend={messages => this.onSend(messages)}
                         user={{
