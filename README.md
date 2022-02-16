@@ -1,9 +1,11 @@
 # blablachat
 
+## Description
+
 BlaBlaChat is a chat app for mobile devices created using React Native. 
 The app will provide users with a chat interface and options to share images and their location.
 
-# User Stories
+## User Stories
 
 As a new user, I want to be able to easily enter a chat room so I can quickly start talking to my friends and family.  
 As a user, I want to be able to send messages to my friends and family members to exchange the latest news.  
@@ -16,7 +18,7 @@ A page displaying the conversation, as well as an input field and submit button.
 The chat must provide users with two additional communication features: sending images and location data.  
 Data gets stored online and offline.
 
-# Technical Requirements
+## Technical Requirements
 
 The app is written in React Native.  
 The app is developed using Expo.  
@@ -32,14 +34,14 @@ Location data is sent via the chat in a map view.
 The chat interface and functionality are created using the Gifted Chat library.  
 The app’s codebase contains comments.  
 
-# Tech Stack
+## Tech Stack
 
 React Native. 
 Expo. 
 Firebase Firestore. 
 Gifted Chat. 
 
-# Installation
+## Installation
 
 Prerequisites:  
 Expo:  npm install expo-cli --global
